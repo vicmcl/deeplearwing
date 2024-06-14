@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "naca-airfoils"
+version = "0.1.0"
+description = ""
+authors = ["victorien <victorienmichel3@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.2"
+beautifulsoup4 = "^4.12.3"
+requests = "^2.32.3"
+seaborn = "^0.13.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
