@@ -1,6 +1,8 @@
 import requests
 import pandas as pd
 import json
+
+from pathlib import Path
 from bs4 import BeautifulSoup
 
 
@@ -48,6 +50,8 @@ def get_data(reynolds):
 
 
 if __name__ == "__main__":
-    json_data = get_data(50_000)
-    with open("airfoil_data_50000.json", "w") as f:
-        json.dump(json_data, f, indent=4)
+    DATA_PATH = Path(__file__).parents[1] / "data"
+    for reynolds in [50_000, 100_000, 200_000, 500_000, 1_000_000]:
+        json_data = get_data(reynolds)
+        with open(DATA_PATH / f"airfoil_data_{reynolds}.json", "w") as f:
+            json.dump(json_data, f, indent = 4)
