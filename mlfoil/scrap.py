@@ -43,7 +43,19 @@ def get_data(reynolds):
         try:
             coords = get_coords(airfoil_name)
             polars = get_polars(airfoil_name, reynolds)
-            data[airfoil_name] = {"coords": coords, "polars": polars}
+            x, y = map(list, zip(*coords))
+            dict_coords = {"x": x, "y": y}
+            alpha, cl, cd, cdp, cm, otp_xtr, bot_xtr = map(list, zip(*polars))
+            dict_polars = {
+                "alpha": alpha,
+                "cl": cl,
+                "cd": cd,
+                "cdp": cdp,
+                "cm": cm,
+                "otp_xtr": otp_xtr,
+                "bot_xtr": bot_xtr
+            }
+            data[airfoil_name] = {"coords": dict_coords, "polars": dict_polars}
         except Exception as e:
             print(f"Failed to fetch data for {airfoil_name}: {e}")
     return data
