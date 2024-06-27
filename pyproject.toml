@@ -16,6 +16,7 @@ beautifulsoup4 = "^4.12.3"
 requests = "^2.32.3"
 seaborn = "^0.13.2"
 plotly = "^5.22.0"
+datasets = "^2.20.0"
 
 
 [build-system]
