@@ -5,8 +5,8 @@ description = ""
 authors = ["victorien <victorienmichel3@gmail.com>"]
 readme = "README.md"
 packages = [
-    { include = "mlfoil"},
-    { include = "mlfoil/**/*.py"}
+    { include = "deeplearwing"},
+    { include = "deeplearwing/**/*.py"}
 ]
 
 [tool.poetry.dependencies]
