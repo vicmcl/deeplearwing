@@ -1,4 +1,4 @@
-# 2d-airfoil-performances
+# deeplearwing
 
 ## Introduction
 
