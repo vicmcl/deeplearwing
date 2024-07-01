@@ -72,7 +72,7 @@ def update_layout(fig, y_range):
 
 
 def generate_image(fig):
-    img_bytes = fig.to_image(format="png")
+    img_bytes = fig.to_image(format="jpg")
     img = Image.open(io.BytesIO(img_bytes))
     img = img.convert('L')  # Convert image to grayscale
     img_array = np.array(img)
