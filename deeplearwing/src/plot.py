@@ -65,8 +65,8 @@ def update_layout(fig, y_range):
         ),
         margin=dict(l=0, r=0, t=0, b=0),
         autosize=False,
-        width=800,
-        height=400,
+        width=224,
+        height=224,
     )
     fig.update_yaxes(constrain='domain')
 
@@ -74,7 +74,9 @@ def update_layout(fig, y_range):
 def generate_image(fig):
     img_bytes = fig.to_image(format="png")
     img = Image.open(io.BytesIO(img_bytes))
-    return img
+    img = img.convert('L')  # Convert image to grayscale
+    img_array = np.array(img)
+    return img_array
 
 
 if __name__=='__main__':
