@@ -1,4 +1,5 @@
 import io
+import sys
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -6,7 +7,11 @@ import matplotlib.pyplot as plt
 
 from pathlib import Path
 from PIL import Image
-from features import string_to_floats
+
+if 'google.colab' in sys.modules:
+    from src.features import string_to_floats
+else:
+    from features import string_to_floats
 
 
 DATA_PATH = Path(__file__).parents[2] / "data"
