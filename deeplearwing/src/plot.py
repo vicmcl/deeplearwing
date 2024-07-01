@@ -60,8 +60,8 @@ def normalize_coordinates(x: List[float], y: List[float], image_width: int, imag
     y_min, y_max = min(y), max(y)
     
     # Calculate scaling factors for x and y separately
-    x_scale = (image_width * 1) / (x_max - x_min)
-    y_scale = (image_height * 1) / (y_max - y_min)
+    x_scale = image_width / (x_max - x_min)
+    y_scale = image_height / (y_max - y_min)
     
     # Use the smaller scale to ensure the entire airfoil fits
     scale = min(x_scale, y_scale)
