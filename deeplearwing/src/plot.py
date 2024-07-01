@@ -33,7 +33,7 @@ def airfoil_to_image(x: List[float], y: List[float], image_width: int = 512, ima
     normalized_coords = normalize_coordinates(x, y, image_width, image_height)
     img = create_white_image(image_width, image_height)
     draw_airfoil(img, normalized_coords)
-    return np.asarray(img).astype('float32')
+    return (np.array(img) / 255).astype("float32")
 
 
 def normalize_coordinates(x: List[float], y: List[float], image_width: int, image_height: int) -> List[Tuple[int, int]]:
