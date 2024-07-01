@@ -18,6 +18,8 @@ seaborn = "^0.13.2"
 plotly = "^5.22.0"
 datasets = "^2.20.0"
 scikit-learn = "^1.5.0"
+ipykernel = "^6.29.4"
+ipython = "^8.26.0"
 
 
 [build-system]
