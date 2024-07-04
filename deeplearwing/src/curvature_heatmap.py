@@ -49,7 +49,7 @@ def compute_heatmap(contours, GX, GY, n):
             gy2 = GY[y2, x2]
             cos_angle = gx1 * gx2 + gy1 * gy2
             cos_angle /= np.linalg.norm((gx1, gy1)) * np.linalg.norm((gx2, gy2))
-            cos_angle = min(1, cos_angle)
+            cos_angle = min(1, max(-1, cos_angle))
             angle = np.arccos(cos_angle)
             if cos_angle < 0:
                 angle = np.pi - angle
