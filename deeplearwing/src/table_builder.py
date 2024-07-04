@@ -19,8 +19,8 @@ def json_ingestion(file: Path):
     tuple: A tuple containing the Reynolds number (extracted from the file name) and the loaded data from the JSON file.
     """
     print(f"Processing {file.stem}")
-    reynolds = file.stem.split('_')[-1]
-    data = json.load(open(file, 'r'))
+    reynolds = file.stem.split("_")[-1]
+    data = json.load(open(file, "r"))
     return reynolds, data
 
 
@@ -64,34 +64,30 @@ def build_table(json_files: list[Path]):
         rows = []
 
         for airfoil_name, data in airfoil_data.items():
-            angles = safe_get(data, 'polars.alpha')
+            angles = safe_get(data, "polars.alpha")
             reynolds_array = np.full(len(angles), reynolds)
             combinations = np.column_stack((reynolds_array, angles))
 
             for i, (reynolds, angle) in enumerate(combinations):
-                rows.append({
-                    'name': airfoil_name.replace('-il', ''),
-                    'image': str(DATA_PATH / 'jpg' / f'{airfoil_name}.jpg'),
-                    'angle': angle,
-                    'reynolds': reynolds,
-                    'x_coords': ' '.join(map(str, safe_get(data, 'coords.x'))),
-                    'y_coords': ' '.join(map(str, safe_get(data, 'coords.y'))),
-                    'cd': safe_get(data, 'polars.cd')[i],
-                    'cl': safe_get(data, 'polars.cl')[i],
-                    'cm': safe_get(data, 'polars.cm')[i]
-                })
-        
+                rows.append(
+                    {
+                        "name": airfoil_name.replace("-il", ""),
+                        "angle": angle,
+                        "reynolds": reynolds,
+                        "x_coords": " ".join(map(str, safe_get(data, "coords.x"))),
+                        "y_coords": " ".join(map(str, safe_get(data, "coords.y"))),
+                        "cd": safe_get(data, "polars.cd")[i],
+                        "cl": safe_get(data, "polars.cl")[i],
+                        "cm": safe_get(data, "polars.cm")[i],
+                    }
+                )
+
         df = pd.concat([df, pd.DataFrame(rows)], ignore_index=True)
     return df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-    json_files = [file for file in DATA_PATH.glob('json/*.json')]
+    json_files = [file for file in DATA_PATH.glob("json/*.json")]
     df = build_table(json_files)
-    df.to_csv(DATA_PATH / 'csv' / 'data.csv', index=False)
-
-
-
-
-
+    df.to_csv(DATA_PATH / "csv" / "data.csv", index=False)
