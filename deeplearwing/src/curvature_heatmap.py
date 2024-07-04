@@ -10,10 +10,14 @@ def compute_curvature(image_array, n=5, smooth_value=3):
     GX, GY = compute_gradients(I)
     I = threshold_image(I)
     C = find_contours(I)
-    heatmap = compute_heatmap(C, GX, GY, n)
-    if smooth_value is not None:
-        heatmap = smooth_heatmap(heatmap, smmooth_value=smooth_value)
-    return heatmap
+    try:
+        heatmap = compute_heatmap(C, GX, GY, n)
+        if smooth_value is not None:
+            heatmap = smooth_heatmap(heatmap, smmooth_value=smooth_value)
+        return heatmap
+    except Exception as e:
+        print("Error computing curvature heatmap:", e)
+        return None
 
 
 def compute_gradients(image):
