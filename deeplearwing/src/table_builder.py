@@ -5,7 +5,7 @@ import json
 import numpy as np
 
 
-DATA_PATH = Path(__file__).parents[1] / "data"
+DATA_PATH = Path(__file__).parents[2] / "data"
 
 
 def json_ingestion(file: Path):
@@ -48,6 +48,33 @@ def safe_get(data: dict, dot_chained_keys: str):
     return data
 
 
+def remove_duplicate_airfoils(df):
+    """
+    Remove duplicate airfoils from a DataFrame based on the 'y_coords' and 'name' columns.
+
+    Parameters:
+    - df (pandas.DataFrame): The DataFrame containing the airfoil data.
+
+    Returns:
+    - df_copy (pandas.DataFrame): A copy of the input DataFrame with duplicate airfoils removed.
+    """
+    # Copy DataFrame to preserve original
+    df_copy = df.copy()
+
+    # Find first occurrence of duplicates by y_coords and name
+    duplicates_to_drop = (
+        df_copy.groupby('y_coords')
+               .filter(lambda x: x['name'].nunique() > 1)  # Filter groups with >1 unique name
+               .groupby('y_coords')['name']
+               .first().tolist()  # Select first name in each group
+    )
+
+    # Create mask for rows to drop
+    mask = df_copy['name'].isin(duplicates_to_drop)
+    df_copy = df_copy[~mask]
+    return df_copy
+
+
 def build_table(json_files: list[Path]):
     """
     Builds a table from a list of JSON files.
@@ -83,6 +110,7 @@ def build_table(json_files: list[Path]):
                 )
 
         df = pd.concat([df, pd.DataFrame(rows)], ignore_index=True)
+        df = remove_duplicate_airfoils(df)
     return df
 
 
