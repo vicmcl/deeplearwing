@@ -16,7 +16,6 @@ def compute_curvature(image_array, n=5, smooth_value=3):
             heatmap = smooth_heatmap(heatmap, smmooth_value=smooth_value)
         return heatmap
     except Exception as e:
-        print("Error computing curvature heatmap:", e)
         return None
 
 
