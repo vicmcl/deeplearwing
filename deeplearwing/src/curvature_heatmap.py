@@ -5,7 +5,7 @@ from pathlib import Path
 DATA_PATH = Path(__file__).parents[2] / "data"
 
 
-def compute_curvature(image_array, n=5, smooth_value=None):
+def compute_curvature(image_array, n=5, smooth_value=3):
     I = (image_array * 255).astype(np.uint8)
     GX, GY = compute_gradients(I)
     I = threshold_image(I)
