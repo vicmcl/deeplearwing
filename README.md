@@ -43,9 +43,16 @@ The images have a resolution of 300 by 100 pixels. This low resolution causes pi
 
 ![](images/preprocessing_steps.png)
 
-From the entire dataset, an average airfoil can be computed to show the average shape
+From the entire dataset, an average airfoil shape can be calculated to represent the typical profile across all samples. This average shape is derived by computing the mean value for each pixel across all the airfoil images in the dataset. The resulting composite image provides a visual representation of the most common features and characteristics shared among the airfoils in the dataset.
 
 ![](images/average_airfoil.png)
+
+This average shape can offer several insights:
+* It illustrates the general characteristics of the airfoils in the dataset, such as the typical thickness distribution, camber, and leading edge radius.
+* It can serve as a reference point for comparing individual airfoils within the dataset, helping to identify those with unusual or extreme features.
+* It may reveal biases or trends in the dataset, such as a preference for certain airfoil families or design philosophies.
+* It can be used as a starting point for further analysis or design iterations, representing a 'baseline' airfoil that embodies the dataset's overall characteristics.
+
 
 
 ## Model Architecture
