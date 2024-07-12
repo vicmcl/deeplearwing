@@ -36,7 +36,9 @@ For each airfoil, these performances are given for a range of Reynolds numbers (
 
 ## Model Architecture
 
-The CNN model architecture is determined using Keras Tuner with the HyperBand algorithm, to determine hyperparameters such as:
+The model takes two types of inputs: an image and a vector containing normalized values of angle of attack and Reynolds number. The image is processed by a CNN, while the vector is processed by a feedforward neural network. The outputs from both neural networks are then concatenated and fed into another feedforward neural network, which produces the final predictions for the target values.
+
+The model architecture is determined using Keras Tuner with the HyperBand algorithm, to determine hyperparameters such as:
 * Number of convolution layers
 * Number of dense layers
 * Number of filters
@@ -49,4 +51,22 @@ The model was trained using the Adam optimizer and mean squared error (MSE) loss
 
 ## Evaluation
 
-The model was evaluated on a test set of 200 airfoils, and achieved a mean absolute error (MAE) of 0.05 for lift coefficient and 0.03 for drag coefficient.
+The model was evaluated on a test set of 2000 samples.
+The ranges of values for these samples are:
+
+| Target | Range |
+| :---: | :---: |
+| Cd | 0.0036 - 0.2185 |
+| Cl | -1.3594 - 2.1463 |
+| Cm | -0.2625 - 0.2555 |
+
+The mean absolute errors are:
+
+| Target | Mean Absolute Error |
+| :---: | :---: |
+| Cd | 0.0106 |
+| Cl | 0.1081 |
+| Cm | 0.0153 |
+
+Predicting lift values for airfoils is more complex than predicting drag in both traditional simulations and deep learning approaches due to lift's high sensitivity to small changes in flow conditions and airfoil geometry. Lift involves intricate flow phenomena like separation and boundary layer interactions, which are challenging to model accurately. The non-linear behavior of lift requires larger, more diverse datasets and sophisticated modeling techniques to capture multi-scale physics and temporal dynamics. Additionally, models struggle with extrapolation to extreme conditions and face interpretability challenges. These factors collectively make lift prediction a more demanding task, reflecting the fundamental complexity of lift forces in fluid dynamics and requiring more extensive validation across varied test cases.
+
