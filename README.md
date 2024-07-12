@@ -33,6 +33,39 @@ The dataset was scraped from [Airfoil Tools](http://airfoiltools.com/). This onl
 
 For each airfoil, these performances are given for a range of Reynolds numbers (from 50 000 to 1 000 000) and angles of attack (from -10 to +10 deg for most airfoils) resulting in 800k+ samples. The dataset can be found on [Kaggle](https://www.kaggle.com/datasets/victorienmichel/deeplearwing)
 
+## Preprocessing
+
+### Airfoil images set
+
+An image of each airfoil is generated from a set of XY coordinates. These coordinates define the airfoil's shape, and the image creation process involves plotting these points and filling the resulting outline to produce a visual representation of the airfoil profile.
+
+![](images/airfoils_set.png)
+
+### Image treatment
+
+The images have a resolution of 300 by 100 pixels. This low resolution causes pixelation of the airfoil surfaces, which are then smoothed using Gaussian blur. Subsequently, the curvature of the surfaces is calculated. A heatmap is then generated, highlighting the areas of maximum curvature along the airfoil.
+
+![](images/preprocessing_steps.png)
+
+The pixelation still noticeably impedes the curvature calculation, which is why Gaussian blur is also applied to the heatmap. This additional smoothing helps reduce the artifacts caused by the low-resolution images.
+
+### Image channels
+
+To evaluate the impact of incorporating a curvature heatmap into the model, two types of images are used as input for the CNN. The first type consists of a single-channel image, where pixel values represent the airfoil shape. The second type includes an additional channel that represents the curvature heatmap. This approach allows for a comparative analysis of the model's performance with and without the curvature information.
+
+### Average airfoil 
+
+From the entire dataset, an average airfoil shape can be calculated to represent the typical profile across all samples. This average shape is derived by computing the mean value for each pixel across all the airfoil images in the dataset. The resulting composite image provides a visual representation of the most common features and characteristics shared among the airfoils in the dataset.
+
+![](images/average_airfoil.png)
+
+This average shape can offer several insights:
+* It illustrates the general characteristics of the airfoils in the dataset, such as the typical thickness distribution, camber, and leading edge radius.
+* It can serve as a reference point for comparing individual airfoils within the dataset, helping to identify those with unusual or extreme features.
+* It may reveal biases or trends in the dataset, such as a preference for certain airfoil families or design philosophies.
+* It can be used as a starting point for further analysis or design iterations, representing a 'baseline' airfoil that embodies the dataset's overall characteristics.
+
+
 
 ## Model Architecture
 
@@ -45,9 +78,6 @@ The model architecture is determined using Keras Tuner with the HyperBand algori
 * Kernel sizes
 * Inclusion of batch normalization and dropout layers
 
-## Training
-
-The model was trained using the Adam optimizer and mean squared error (MSE) loss function.
 
 ## Evaluation
 
