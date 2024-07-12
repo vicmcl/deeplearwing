@@ -65,22 +65,22 @@ This average shape offers several insights:
 * It may reveal biases or trends in the dataset, such as a preference for certain airfoil families or design philosophies.
 * It can be used as a starting point for further analysis or design iterations, representing a 'baseline' airfoil that embodies the dataset's overall characteristics.
 
-
-
 ## Model Architecture
 
 The model takes two types of inputs: an image and a vector containing normalized values of angle of attack and Reynolds number. The image is processed by a CNN, while the vector is processed by a feedforward neural network. The outputs from both neural networks are then concatenated and fed into another feedforward neural network, which produces the final predictions for the target values.
 
-The model architecture is determined using Keras Tuner with the HyperBand algorithm, to determine hyperparameters such as:
+![](images/nn_arch.png)
+
+A Keras Tuner with the HyperBand algorithm is used to determine hyperparameters such as:
 * Number of convolution layers
 * Number of dense layers
 * Number of filters
 * Kernel sizes
 * Inclusion of batch normalization and dropout layers
 
-![](images/nn_arch.png)
-
 ## Evaluation
+
+### Test data
 
 The model was evaluated on a test set of 2000 samples.
 The ranges of values for these samples are:
@@ -93,12 +93,16 @@ The ranges of values for these samples are:
 
 ### Single-channel images vs double-channel images
 
+Both sets of images are compared using the Mean Squared Error (MSE) and the Mean Absolute Error (MAE). Lower values for both metrics indicate better accuracy of the model. These metrics provide an aggregate measure of error across all coordinates. They do not provide a measure of error on Cd, Cl or Cm specifically.
+
 | | Single-Channel Images | Double-Channel Images |
 | :---: | :---: | :---: |
 | MSE | 0.0024 | 0.0021 |
 | MAE | 0.0342 | 0.0310 |
 
 Both MSE and MAE are lower for the Double-Channel Images, indicating improved model performance. The reduction in MSE represents a **12.5%** improvement. The reduction in MAE represents a **9.36%** improvement. The addition of the curvature heatmap (second channel) appears to provide valuable information to the model, resulting in more accurate predictions. The improvement is consistent across both error metrics, suggesting that the benefit is robust and not an artifact of a particular measurement approach. The relatively larger improvement in MSE compared to MAE might indicate that the additional channel helps reduce larger errors more effectively.
+
+### Accuracy of the predictions on coeffecients
 
 The mean absolute errors are:
 
