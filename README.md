@@ -33,6 +33,20 @@ The dataset was scraped from [Airfoil Tools](http://airfoiltools.com/). This onl
 
 For each airfoil, these performances are given for a range of Reynolds numbers (from 50 000 to 1 000 000) and angles of attack (from -10 to +10 deg for most airfoils) resulting in 800k+ samples. The dataset can be found on [Kaggle](https://www.kaggle.com/datasets/victorienmichel/deeplearwing)
 
+## Preprocessing
+
+From a set of XY coordinates, an image of each airfoil is created.
+
+![](images/airfoils_set.png)
+
+The images have a resolution of 300 by 100 pixels. This low resolution causes pixelation of the airfoil surfaces, which are then smoothed using Gaussian blur. Subsequently, the curvature of the surfaces is calculated. A heatmap is then generated, highlighting the areas of maximum curvature along the airfoil.
+
+![](images/preprocessing_steps.png)
+
+From the entire dataset, an average airfoil can be computed to show the average shape
+
+![](images/average_airfoil.png)
+
 
 ## Model Architecture
 
@@ -45,9 +59,6 @@ The model architecture is determined using Keras Tuner with the HyperBand algori
 * Kernel sizes
 * Inclusion of batch normalization and dropout layers
 
-## Training
-
-The model was trained using the Adam optimizer and mean squared error (MSE) loss function.
 
 ## Evaluation
 
