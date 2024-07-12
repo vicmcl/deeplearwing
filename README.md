@@ -59,7 +59,7 @@ From the entire dataset, an average airfoil shape can be calculated to represent
 
 ![](images/average_airfoil.png)
 
-This average shape can offer several insights:
+This average shape offers several insights:
 * It illustrates the general characteristics of the airfoils in the dataset, such as the typical thickness distribution, camber, and leading edge radius.
 * It can serve as a reference point for comparing individual airfoils within the dataset, helping to identify those with unusual or extreme features.
 * It may reveal biases or trends in the dataset, such as a preference for certain airfoil families or design philosophies.
@@ -78,6 +78,7 @@ The model architecture is determined using Keras Tuner with the HyperBand algori
 * Kernel sizes
 * Inclusion of batch normalization and dropout layers
 
+![](images/nn_arch.png)
 
 ## Evaluation
 
@@ -89,6 +90,15 @@ The ranges of values for these samples are:
 | Cd | 0.0036 - 0.2185 |
 | Cl | -1.3594 - 2.1463 |
 | Cm | -0.2625 - 0.2555 |
+
+### Single-channel images vs double-channel images
+
+| | Single-Channel Images | Double-Channel Images |
+| :---: | :---: | :---: |
+| MSE | 0.0024 | 0.0021 |
+| MAE | 0.0342 | 0.0310 |
+
+Both MSE and MAE are lower for the Double-Channel Images, indicating improved model performance. The reduction in MSE represents a **12.5%** improvement. The reduction in MAE represents a **9.36%** improvement. The addition of the curvature heatmap (second channel) appears to provide valuable information to the model, resulting in more accurate predictions. The improvement is consistent across both error metrics, suggesting that the benefit is robust and not an artifact of a particular measurement approach. The relatively larger improvement in MSE compared to MAE might indicate that the additional channel helps reduce larger errors more effectively.
 
 The mean absolute errors are:
 
