@@ -100,7 +100,7 @@ Both sets of images are compared using the Mean Squared Error (MSE) and the Mean
 | MSE | 0.0024 | 0.0021 |
 | MAE | 0.0342 | 0.0310 |
 
-Both MSE and MAE are lower for the Double-Channel Images, indicating improved model performance. The reduction in MSE represents a **12.5%** improvement. The reduction in MAE represents a **9.36%** improvement. The addition of the curvature heatmap (second channel) appears to provide valuable information to the model, resulting in more accurate predictions. The improvement is consistent across both error metrics, suggesting that the benefit is robust and not an artifact of a particular measurement approach. The relatively larger improvement in MSE compared to MAE might indicate that the additional channel helps reduce larger errors more effectively.
+Both MSE and MAE are lower for the double-channel images, indicating improved model performance. The reduction in MSE represents a **12.5%** improvement. The reduction in MAE represents a **9.4%** improvement. The addition of the curvature heatmap (second channel) appears to provide valuable information to the model, resulting in more accurate predictions. The improvement is consistent across both error metrics, suggesting that the benefit is robust and not an artifact of a particular measurement approach. The relatively larger improvement in MSE compared to MAE might indicate that the additional channel helps reduce larger errors more effectively.
 
 ### Accuracy of the predictions on coeffecients
 
